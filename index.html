@@ -73,11 +73,27 @@ nav .links a:hover{color:var(--ink)}
 .spark .l{font-size:10.5px;color:#8a8172;margin-bottom:4px}
 /* features */
 .fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
-.feat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.feat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column}
 .feat .fi{width:38px;height:38px;border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
 .feat .fi svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .feat h3{font-size:16.5px;margin-bottom:6px;letter-spacing:-.01em}
-.feat p{color:var(--sub);font-size:14px}
+.feat p{color:var(--sub);font-size:14px;flex:1}
+.feat .fs{margin-top:14px;border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 10px 26px -16px rgba(43,38,32,.4)}
+.feat .fs img{display:block;width:100%;height:auto}
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.gal figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .15s ease,box-shadow .15s ease}
+.gal figure:hover{transform:translateY(-3px);box-shadow:0 18px 40px -20px rgba(43,38,32,.45)}
+.gal img{display:block;width:100%;height:auto}
+.gal figcaption{padding:10px 14px;font-size:13.5px;color:var(--sub);border-top:1px solid var(--line)}
+@media (max-width:900px){.gal{grid-template-columns:1fr}}
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:999;display:none;align-items:center;justify-content:center;background:rgba(24,20,16,.82);backdrop-filter:blur(3px)}
+#lb.on{display:flex}
+#lb img{max-width:92vw;max-height:92vh;border-radius:12px;box-shadow:0 30px 90px rgba(0,0,0,.5);cursor:zoom-out}
+#lb-bd{position:absolute;inset:0;cursor:zoom-out}
+#lb-x{position:absolute;top:18px;right:26px;color:#fff;font-size:34px;line-height:1;cursor:pointer;opacity:.85;font-weight:300}
+#lb-x:hover{opacity:1}
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;counter-reset:s}
 .step{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 20px 20px}
@@ -158,46 +174,7 @@ body.lang-en span[data-lang="en"],body.lang-zh span[data-lang="zh"],body.lang-zh
   </div>
  </div>
  <div class="shot" aria-hidden="true">
-  <div class="window">
-   <div class="titlebar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">AiosPulse — Dashboard</span></div>
-   <div class="winbody">
-    <div class="side">
-     <div class="hd">Apps · 17</div>
-     <div class="app on">DemoFit <span class="st">●</span></div>
-     <div class="app">DemoBrief <span class="st">●</span></div>
-     <div class="app">DemoElf <span class="st">●</span></div>
-     <div class="app">DemoMorning</div>
-     <div class="app">DemoRain</div>
-     <div class="app">DemoFocus</div>
-    </div>
-    <div class="main">
-     <div class="kpis">
-      <div class="kpi"><div class="l" data-lang="en">Impressions (7d)</div><div class="l" data-lang="zh">曝光 (7天)</div><div class="l" data-lang="zht">曝光 (7天)</div><div class="l" data-lang="ja">インプレッション (7日)</div><div class="v">12,480</div><div class="d up">▲ 8.2%</div></div>
-      <div class="kpi"><div class="l" data-lang="en">Downloads (7d)</div><div class="l" data-lang="zh">下载 (7天)</div><div class="l" data-lang="zht">下載 (7天)</div><div class="l" data-lang="ja">ダウンロード (7日)</div><div class="v">486</div><div class="d up">▲ 5.1%</div></div>
-      <div class="kpi"><div class="l" data-lang="en">Conversion</div><div class="l" data-lang="zh">转化率</div><div class="l" data-lang="zht">轉化率</div><div class="l" data-lang="ja">コンバージョン</div><div class="v">3.9%</div><div class="d down">▼ 0.3pt</div></div>
-     </div>
-     <div class="brief">
-      <div class="bh">✦ <span data-lang="en">Today's briefing</span><span data-lang="zh">今日简报</span><span data-lang="zht">今日簡報</span><span data-lang="ja">今日のブリーフィング</span></div>
-      <ul>
-       <li><span class="ic o">⚡</span><span><b>DemoFit</b> <span data-lang="en">impressions +18% WoW — keyword “home gym” is climbing, double down before competitors notice.</span><span data-lang="zh">曝光周环比 +18% —— 关键词“home gym”正在爬升,趁对手没注意加大投入。</span><span data-lang="zht">曝光週環比 +18% —— 關鍵詞“home gym”正在爬升,趁對手沒注意加大投入。</span><span data-lang="ja">インプレッションが前週比 +18% —— キーワード「home gym」が上昇中。競合に気づかれる前に集中投資を。</span></span></li>
-       <li><span class="ic b">📉</span><span><b>DemoRain</b> <span data-lang="en">page conversion down 0.8pt after v2.4 — new screenshots are the suspect, A/B them this week.</span><span data-lang="zh">v2.4 后产品页转化降 0.8pt —— 嫌疑是新截图,本周做 A/B 验证。</span><span data-lang="zht">v2.4 後產品頁轉化降 0.8pt —— 嫌疑是新截圖,本週做 A/B 驗證。</span><span data-lang="ja">v2.4 以降で製品ページの CVR が 0.8pt 低下 —— 新スクリーンショットが疑い。今週 A/B テストを。</span></span></li>
-       <li><span class="ic g">🎯</span><span><b>DemoFocus</b> <span data-lang="en">annual-plan renewals at 62% — good moment to trial a yearly upsell on the paywall.</span><span data-lang="zh">年订阅续费率 62% —— 适合在付费页试一次年费升级引导。</span><span data-lang="zht">年訂閱續費率 62% —— 適合在付費頁試一次年費升級引導。</span><span data-lang="ja">年間プラン更新率 62% —— ペイウォールで年額アップセルを試す好機。</span></span></li>
-      </ul>
-     </div>
-     <div class="spark">
-      <div class="l" data-lang="en">Impressions · Downloads — last 7 days</div>
-      <div class="l" data-lang="zh">曝光 · 下载 —— 近 7 天</div>
-      <div class="l" data-lang="zht">曝光 · 下載 —— 近 7 天</div>
-      <div class="l" data-lang="ja">インプレッション · DL —— 過去7日</div>
-      <svg viewBox="0 0 300 46" width="100%" height="46">
-       <polyline points="0,38 40,34 80,35 120,28 160,26 200,20 240,18 300,10" fill="none" stroke="#c2410c" stroke-width="2.2" stroke-linecap="round"/>
-       <polyline points="0,42 40,41 80,39 120,38 160,36 200,34 240,33 300,30" fill="none" stroke="#1d4ed8" stroke-width="1.8" stroke-dasharray="1 4" stroke-linecap="round"/>
-      </svg>
-     </div>
-    </div>
-   </div>
-  </div>
- </div>
+  <img src="images/dash.jpg" data-lang-src='{"en":"images/dash.jpg","zh":"images/zh/dash.jpg","zht":"images/zh/dash.jpg","ja":"images/dash.jpg"}' alt="AiosPulse dashboard — live funnel, app ranking and AI briefing" loading="eager" style="display:block;width:100%;height:auto;border-radius:10px">
 </div></header>
 
 <section id="features"><div class="wrap">
@@ -205,13 +182,30 @@ body.lang-en span[data-lang="en"],body.lang-zh span[data-lang="zh"],body.lang-zh
  <h2><span data-lang="en">Everything between “raw data” and “what do I do today”</span><span data-lang="zh">从「原始数据」到「今天该做什么」之间的全部</span><span data-lang="zht">從「原始數據」到「今天該做什麼」之間的全部</span><span data-lang="ja">「生データ」から「今日やること」までのすべて</span></h2>
  <p class="sub"><span data-lang="en">Six modules, one workflow. Each one feeds the briefing.</span><span data-lang="zh">六个模块,一条工作流,全部汇入每日简报。</span><span data-lang="zht">六個模組,一條工作流,全部匯入每日簡報。</span><span data-lang="ja">6つのモジュールが一つのワークフローに。すべてブリーフィングに集約。</span></p>
  <div class="fgrid">
-  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 3l2.1 5.6L20 10l-5.9 1.4L12 17l-2.1-5.6L4 10l5.9-1.4z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div><h3><span data-lang="en">Daily AI briefing</span><span data-lang="zh">每日 AI 简报</span><span data-lang="zht">每日 AI 簡報</span><span data-lang="ja">毎日のAIブリーフィング</span></h3><p><span data-lang="en">Plain-language recap of what moved across all your apps — with the “so what” already written for you. Rules-based engine is free; plug in your own LLM key for deeper reads.</span><span data-lang="zh">用大白话讲清全部 app 的异动,连「所以呢」都替你写好。规则引擎免费;插上自己的 LLM Key 解读更深。</span><span data-lang="zht">用大白話講清全部 app 的異動,連「所以呢」都替你寫好。規則引擎免費;插上自己的 LLM Key 解讀更深。</span><span data-lang="ja">全アプリの動きを平易な言葉で要約。「だから何?」まで答えます。ルールエンジンは無料、LLM キーでさらに深く。</span></p></div>
-  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div><h3><span data-lang="en">Trend diagnostics</span><span data-lang="zh">趋势诊断</span><span data-lang="zht">趨勢診斷</span><span data-lang="ja">トレンド診断</span></h3><p><span data-lang="en">Impressions → page views → taps → downloads: see exactly which funnel stage leaks, per app, per country.</span><span data-lang="zh">曝光→产品页→点击→下载,逐层看漏斗哪一环在漏,按 app、按国家拆。</span><span data-lang="zht">曝光→產品頁→點擊→下載,逐層看漏斗哪一環在漏,按 app、按國家拆。</span><span data-lang="ja">インプレッション→ページ→タップ→DL。ファネルのどの段階が漏れているか、アプリ別・国別に可視化。</span></p></div>
-  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 010 18M3 12h18M12 3a15 15 0 000 18"/></svg></div><h3><span data-lang="en">Geo breakdown</span><span data-lang="zh">地区拆解</span><span data-lang="zht">地區拆解</span><span data-lang="ja">地域別分析</span></h3><p><span data-lang="en">Where downloads actually come from — spot a rising market early, catch a listing problem in one country before it spreads.</span><span data-lang="zh">下载到底从哪来 —— 及早发现 rising market,在一个国家的页面出问题时就拦住它。</span><span data-lang="zht">下載到底從哪來 —— 及早發現 rising market,在一個國家的頁面出問題時就攔住它。</span><span data-lang="ja">ダウンロードの出身地を把握。伸びる市場を早期発見、一国のページ問題を拡大前に捕捉。</span></p></div>
-  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M4 18v-6a8 5 0 0116 0v6"/><path d="M2 18h20M12 4v2"/></svg></div><h3><span data-lang="en">Keyword radar</span><span data-lang="zh">关键词雷达</span><span data-lang="zht">關鍵詞雷達</span><span data-lang="ja">キーワードレーダー</span></h3><p><span data-lang="en">Track your rankings on the terms you bid on, watch them drift day by day, and see which title/keyword tweaks actually moved the needle.</span><span data-lang="zh">盯住你投的关键词排名,逐日漂移看得见;改标题/关键词到底有没有用,数据说话。</span><span data-lang="zht">盯住你投的關鍵詞排名,逐日漂移看得見;改標題/關鍵詞到底有沒有用,數據說話。</span><span data-lang="ja">設定キーワードの順位を日々追跡。タイトルやキーワード変更の効果をデータで検証。</span></p></div>
-  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 15h4"/></svg></div><h3><span data-lang="en">Revenue & subscriptions</span><span data-lang="zh">收入与订阅</span><span data-lang="zht">收入與訂閱</span><span data-lang="ja">売上とサブスク</span></h3><p><span data-lang="en">Proceeds, refunds and renewal cohorts side by side — know your real net, not the vanity number.</span><span data-lang="zh">收入、退款、续费同期群放在一起看 —— 看真实净收入,别看虚荣数字。</span><span data-lang="zht">收入、退款、續費同期群放在一起看 —— 看真實淨收入,別看虛榮數字。</span><span data-lang="ja">売上・返金・更新コホートを並べて確認。虚栄の数字ではなく純利益を。</span></p></div>
-  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3><span data-lang="en">Private by design</span><span data-lang="zh">隐私即默认</span><span data-lang="zht">隱私即默認</span><span data-lang="ja">プライバシー設計</span></h3><p><span data-lang="en">Runs sandboxed on your Mac. Credentials live in your Keychain, analytics in your Application Support folder. No accounts, no telemetry, no cloud.</span><span data-lang="zh">在你的 Mac 沙盒内运行:凭证进钥匙串,数据进 Application Support。无账号、无埋点、无云端。</span><span data-lang="zht">在你的 Mac 沙盒內運行:憑證進鑰匙串,數據進 Application Support。無帳號、無埋點、無雲端。</span><span data-lang="ja">Mac のサンドボックス内で動作。資格情報はキーチェーン、データは Application Support へ。アカウント・テレメトリ・クラウドなし。</span></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 3l2.1 5.6L20 10l-5.9 1.4L12 17l-2.1-5.6L4 10l5.9-1.4z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div><h3><span data-lang="en">Daily AI briefing</span><span data-lang="zh">每日 AI 简报</span><span data-lang="zht">每日 AI 簡報</span><span data-lang="ja">毎日のAIブリーフィング</span></h3><p><span data-lang="en">Plain-language recap of what moved across all your apps — with the “so what” already written for you. Rules-based engine is free; plug in your own LLM key for deeper reads.</span><span data-lang="zh">用大白话讲清全部 app 的异动,连「所以呢」都替你写好。规则引擎免费;插上自己的 LLM Key 解读更深。</span><span data-lang="zht">用大白話講清全部 app 的異動,連「所以呢」都替你寫好。規則引擎免費;插上自己的 LLM Key 解讀更深。</span><span data-lang="ja">全アプリの動きを平易な言葉で要約。「だから何?」まで答えます。ルールエンジンは無料、LLM キーでさらに深く。</span><div class="fs"><img src="images/brief.jpg" data-lang-src='{"en":"images/brief.jpg","zh":"images/zh/brief.jpg","zht":"images/zh/brief.jpg","ja":"images/brief.jpg"}' alt="AI daily briefing with per-app summaries" loading="lazy"></div></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div><h3><span data-lang="en">Trend diagnostics</span><span data-lang="zh">趋势诊断</span><span data-lang="zht">趨勢診斷</span><span data-lang="ja">トレンド診断</span></h3><p><span data-lang="en">Impressions → page views → taps → downloads: see exactly which funnel stage leaks, per app, per country.</span><span data-lang="zh">曝光→产品页→点击→下载,逐层看漏斗哪一环在漏,按 app、按国家拆。</span><span data-lang="zht">曝光→產品頁→點擊→下載,逐層看漏斗哪一環在漏,按 app、按國家拆。</span><span data-lang="ja">インプレッション→ページ→タップ→DL。ファネルのどの段階が漏れているか、アプリ別・国別に可視化。</span><div class="fs"><img src="images/dash.jpg" data-lang-src='{"en":"images/dash.jpg","zh":"images/zh/dash.jpg","zht":"images/zh/dash.jpg","ja":"images/dash.jpg"}' alt="Impressions-to-downloads funnel and app ranking" loading="lazy"></div></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 010 18M3 12h18M12 3a15 15 0 000 18"/></svg></div><h3><span data-lang="en">Geo breakdown</span><span data-lang="zh">地区拆解</span><span data-lang="zht">地區拆解</span><span data-lang="ja">地域別分析</span></h3><p><span data-lang="en">Where downloads actually come from — spot a rising market early, catch a listing problem in one country before it spreads.</span><span data-lang="zh">下载到底从哪来 —— 及早发现 rising market,在一个国家的页面出问题时就拦住它。</span><span data-lang="zht">下載到底從哪來 —— 及早發現 rising market,在一個國家的頁面出問題時就攔住它。</span><span data-lang="ja">ダウンロードの出身地を把握。伸びる市場を早期発見、一国のページ問題を拡大前に捕捉。</span><div class="fs"><img src="images/ai.jpg" data-lang-src='{"en":"images/ai.jpg","zh":"images/zh/ai.jpg","zht":"images/zh/ai.jpg","ja":"images/ai.jpg"}' alt="AI analysis with custom LLM endpoint" loading="lazy"></div></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M4 18v-6a8 5 0 0116 0v6"/><path d="M2 18h20M12 4v2"/></svg></div><h3><span data-lang="en">Keyword radar</span><span data-lang="zh">关键词雷达</span><span data-lang="zht">關鍵詞雷達</span><span data-lang="ja">キーワードレーダー</span></h3><p><span data-lang="en">Track your rankings on the terms you bid on, watch them drift day by day, and see which title/keyword tweaks actually moved the needle.</span><span data-lang="zh">盯住你投的关键词排名,逐日漂移看得见;改标题/关键词到底有没有用,数据说话。</span><span data-lang="zht">盯住你投的關鍵詞排名,逐日漂移看得見;改標題/關鍵詞到底有沒有用,數據說話。</span><span data-lang="ja">設定キーワードの順位を日々追跡。タイトルやキーワード変更の効果をデータで検証。</span><div class="fs"><img src="images/radar.jpg" data-lang-src='{"en":"images/radar.jpg","zh":"images/zh/radar.jpg","zht":"images/zh/radar.jpg","ja":"images/radar.jpg"}' alt="Keyword rank tracking across competitors" loading="lazy"></div></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 15h4"/></svg></div><h3><span data-lang="en">Revenue & subscriptions</span><span data-lang="zh">收入与订阅</span><span data-lang="zht">收入與訂閱</span><span data-lang="ja">売上とサブスク</span></h3><p><span data-lang="en">Proceeds, refunds and renewal cohorts side by side — know your real net, not the vanity number.</span><span data-lang="zh">收入、退款、续费同期群放在一起看 —— 看真实净收入,别看虚荣数字。</span><span data-lang="zht">收入、退款、續費同期群放在一起看 —— 看真實淨收入,別看虛榮數字。</span><span data-lang="ja">売上・返金・更新コホートを並べて確認。虚栄の数字ではなく純利益を。</span><div class="fs"><img src="images/paywall.jpg" data-lang-src='{"en":"images/paywall.jpg","zh":"images/zh/paywall.jpg","zht":"images/zh/paywall.jpg","ja":"images/paywall.jpg"}' alt="AiosPulse Pro subscription tiers" loading="lazy"></div></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3><span data-lang="en">Private by design</span><span data-lang="zh">隐私即默认</span><span data-lang="zht">隱私即默認</span><span data-lang="ja">プライバシー設計</span></h3><p><span data-lang="en">Runs sandboxed on your Mac. Credentials live in your Keychain, analytics in your Application Support folder. No accounts, no telemetry, no cloud.</span><span data-lang="zh">在你的 Mac 沙盒内运行:凭证进钥匙串,数据进 Application Support。无账号、无埋点、无云端。</span><span data-lang="zht">在你的 Mac 沙盒內運行:憑證進鑰匙串,數據進 Application Support。無帳號、無埋點、無雲端。</span><span data-lang="ja">Mac のサンドボックス内で動作。資格情報はキーチェーン、データは Application Support へ。アカウント・テレメトリ・クラウドなし。</span><div class="fs"><img src="images/settings.jpg" data-lang-src='{"en":"images/settings.jpg","zh":"images/zh/settings.jpg","zht":"images/zh/settings.jpg","ja":"images/settings.jpg"}' alt="Credentials stored locally in Keychain" loading="lazy"></div></p></div>
  </div>
+</div></section>
+
+<section id="screenshots" style="padding-top:8px"><div class="wrap">
+<div class="kicker"><span data-lang="en">Inside the app</span><span data-lang="zh">应用一览</span><span data-lang="zht">應用一覽</span><span data-lang="ja">アプリのすべて</span></div>
+<h2><span data-lang="en">Nine screens, one workflow</span><span data-lang="zh">九个页面,一条工作流</span><span data-lang="zht">九個頁面,一條工作流</span><span data-lang="ja">9画面、1つのワークフロー</span></h2>
+<div class="gal">
+<figure><img src="images/dash.jpg" data-lang-src='{"en":"images/dash.jpg","zh":"images/zh/dash.jpg","zht":"images/zh/dash.jpg","ja":"images/dash.jpg"}' alt="Dashboard with impressions funnel and app ranking" loading="lazy"><figcaption><span data-lang="en">Dashboard — funnel &amp; ranking</span><span data-lang="zh">仪表盘 — 漏斗与排名</span><span data-lang="zht">儀表盤 — 漏斗與排名</span><span data-lang="ja">ダッシュボード — ファネルと順位</span></figcaption></figure>
+<figure><img src="images/brief.jpg" data-lang-src='{"en":"images/brief.jpg","zh":"images/zh/brief.jpg","zht":"images/zh/brief.jpg","ja":"images/brief.jpg"}' alt="AI daily briefing" loading="lazy"><figcaption><span data-lang="en">Daily briefing — what changed &amp; why</span><span data-lang="zh">每日简报 — 变了什么、为什么</span><span data-lang="zht">每日簡報 — 變了什麼、為什麼</span><span data-lang="ja">毎日のブリーフィング — 何が変わったか</span></figcaption></figure>
+<figure><img src="images/apps.jpg" data-lang-src='{"en":"images/apps.jpg","zh":"images/zh/apps.jpg","zht":"images/zh/apps.jpg","ja":"images/apps.jpg"}' alt="App portfolio table with key metrics" loading="lazy"><figcaption><span data-lang="en">Apps — whole portfolio at a glance</span><span data-lang="zh">应用 — 全部作品一屏总览</span><span data-lang="zht">應用 — 全部作品一屏總覽</span><span data-lang="ja">アプリ — 全作品を一望</span></figcaption></figure>
+<figure><img src="images/radar.jpg" data-lang-src='{"en":"images/radar.jpg","zh":"images/zh/radar.jpg","zht":"images/zh/radar.jpg","ja":"images/radar.jpg"}' alt="Keyword rank tracking" loading="lazy"><figcaption><span data-lang="en">Keyword radar — rank movements</span><span data-lang="zh">关键词雷达 — 排名变动</span><span data-lang="zht">關鍵詞雷達 — 排名變動</span><span data-lang="ja">キーワードレーダー — 順位変動</span></figcaption></figure>
+<figure><img src="images/ai.jpg" data-lang-src='{"en":"images/ai.jpg","zh":"images/zh/ai.jpg","zht":"images/zh/ai.jpg","ja":"images/ai.jpg"}' alt="AI analysis with configurable LLM" loading="lazy"><figcaption><span data-lang="en">AI analysis — your key, your model</span><span data-lang="zh">AI 分析 — 自带 Key 自选模型</span><span data-lang="zht">AI 分析 — 自帶 Key 自選模型</span><span data-lang="ja">AI分析 — 自分のキーとモデル</span></figcaption></figure>
+<figure><img src="images/promo.jpg" data-lang-src='{"en":"images/promo.jpg","zh":"images/zh/promo.jpg","zht":"images/zh/promo.jpg","ja":"images/promo.jpg"}' alt="Promotion channels" loading="lazy"><figcaption><span data-lang="en">Promo channels — what actually converts</span><span data-lang="zh">推广渠道 — 哪个真带量</span><span data-lang="zht">推廣渠道 — 哪個真帶量</span><span data-lang="ja">プロモ渠道 — 哪れが効くか</span></figcaption></figure>
+<figure><img src="images/campaign.jpg" data-lang-src='{"en":"images/campaign.jpg","zh":"images/zh/campaign.jpg","zht":"images/zh/campaign.jpg","ja":"images/campaign.jpg"}' alt="Campaign calendar" loading="lazy"><figcaption><span data-lang="en">Campaign calendar — plan releases</span><span data-lang="zh">营销日历 — 排期发布节奏</span><span data-lang="zht">營銷日曆 — 排期發布節奏</span><span data-lang="ja">キャンペーン — リリース計画</span></figcaption></figure>
+<figure><img src="images/cron.jpg" data-lang-src='{"en":"images/cron.jpg","zh":"images/zh/cron.jpg","zht":"images/zh/cron.jpg","ja":"images/cron.jpg"}' alt="Scheduled collection status" loading="lazy"><figcaption><span data-lang="en">Scheduler — sandbox-safe status</span><span data-lang="zh">定时采集 — 沙盒安全状态</span><span data-lang="zht">定時採集 — 沙盒安全狀態</span><span data-lang="ja">スケジューラ — サンドボックス対応</span></figcaption></figure>
+<figure><img src="images/settings.jpg" data-lang-src='{"en":"images/settings.jpg","zh":"images/zh/settings.jpg","zht":"images/zh/settings.jpg","ja":"images/settings.jpg"}' alt="Settings with local credentials" loading="lazy"><figcaption><span data-lang="en">Settings — credentials in Keychain</span><span data-lang="zh">设置 — 凭证存钥匙串</span><span data-lang="zht">設置 — 憑證存鑰匙串</span><span data-lang="ja">設定 — キーチェーン保存</span></figcaption></figure>
+<figure><img src="images/paywall.jpg" data-lang-src='{"en":"images/paywall.jpg","zh":"images/zh/paywall.jpg","zht":"images/zh/paywall.jpg","ja":"images/paywall.jpg"}' alt="AiosPulse Pro plans" loading="lazy"><figcaption><span data-lang="en">Pro — one unlock, all insights</span><span data-lang="zh">Pro — 一次解锁全部洞察</span><span data-lang="zht">Pro — 一次解鎖全部洞察</span><span data-lang="ja">Pro — 一回の解錠で全部</span></figcaption></figure>
+</div>
 </div></section>
 
 <section id="how" style="padding-top:8px"><div class="wrap">
@@ -260,12 +254,33 @@ function setLang(l){
  document.body.className='lang-'+l;
  try{localStorage.setItem('aiospulse-lang',l)}catch(e){}
  document.documentElement.lang = l==='zht'?'zh-Hant':(l==='zh'?'zh-Hans':l);
+ document.querySelectorAll('img[data-lang-src]').forEach(img=>{
+   const m = JSON.parse(img.getAttribute('data-lang-src'));
+   img.src = m[l] || m.en || img.src.replace(/_[a-z]+(\.\w+)$/,'$1');
+ });
  document.querySelectorAll('.languages a').forEach(a=>a.classList.toggle('on',a.dataset.i18n===l));
 }
 document.querySelectorAll('.languages a').forEach(a=>a.addEventListener('click',()=>setLang(a.dataset.i18n)));
 (function(){var s=null;try{s=localStorage.getItem('aiospulse-lang')}catch(e){}
  if(!s){var n=(navigator.language||'').toLowerCase();s=n.startsWith('zh')?(n.includes('tw')||n.includes('hk')?'zht':'zh'):(n.startsWith('ja')?'ja':'en')}
  setLang(s);})();
+/* lightbox: click any shot to zoom */
+(function(){
+ var lb=document.createElement('div');lb.id='lb';
+ lb.innerHTML='<div id="lb-bd"></div><img id="lb-img" alt="screenshot enlarged"><div id="lb-x">&#215;</div>';
+ document.body.appendChild(lb);
+ var img=document.getElementById('lb-img');
+ function open(src){img.src=src;lb.classList.add('on');document.body.style.overflow='hidden';}
+ function close(){lb.classList.remove('on');document.body.style.overflow='';}
+ lb.addEventListener('click',close);
+ document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+ window.addEventListener('load',function(){
+  document.querySelectorAll('.shot img,.fs img,.gal img').forEach(function(i){
+   i.style.cursor='zoom-in';
+   i.addEventListener('click',function(e){e.stopPropagation();open(i.currentSrc||i.src);});
+  });
+ });
+})();
 </script>
 </body>
 </html>
