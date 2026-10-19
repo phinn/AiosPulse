@@ -4,151 +4,267 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AiosPulse — AI growth analyst for indie developers</title>
-<meta name="description" content="AiosPulse turns App Store Connect data into daily briefings and actionable items. Local-first, your API key stays on your Mac.">
+<meta name="description" content="Turn App Store Connect data into daily briefings and actionable items. Local-first, sandboxed, no sign-up.">
 <style>
-:root{
-  --bg:#faf7f2; --panel:#ffffff; --line:#e8e2d6;
-  --ink:#2b2620; --sub:#6b6357; --accent:#c2410c; --accent2:#1d4ed8;
-}
+:root{--bg:#faf7f2;--panel:#ffffff;--line:#e8e2d6;--ink:#2b2620;--sub:#6b6357;--accent:#c2410c;--accent2:#9a3412;--soft:#f3eee4;--green:#15803d;--red:#b91c1c;--blue:#1d4ed8}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:16px/1.7 -apple-system,"PingFang SC","Hiragino Sans","Microsoft YaHei",sans-serif}
-.wrap{max-width:860px;margin:0 auto;padding:0 24px}
-header{padding:64px 0 40px;border-bottom:1px solid var(--line)}
-h1{font-size:34px;letter-spacing:-.5px}
-h1 .pulse{color:var(--accent)}
-.tag{margin-top:10px;font-size:18px;color:var(--sub)}
-.badges{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
-.badge{font-size:13px;padding:4px 12px;border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--sub)}
-main{padding:40px 0}
-h2{font-size:22px;margin:36px 0 14px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
-.card b{display:block;margin-bottom:6px}
-.card span{font-size:14px;color:var(--sub)}
-.steps{margin-top:8px}
-.steps li{margin:10px 0 10px 20px}
-.steps code,.inline{background:#f0ebe0;border-radius:6px;padding:2px 8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px}
-.note{margin-top:26px;padding:14px 18px;border-left:3px solid var(--accent);background:var(--panel);border-radius:0 10px 10px 0;font-size:15px;color:var(--sub)}
-footer{border-top:1px solid var(--line);padding:28px 0 48px;font-size:14px;color:var(--sub)}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","PingFang SC","Hiragino Sans","Microsoft YaHei",sans-serif;line-height:1.65;font-size:16px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+a{color:var(--accent2)}
+h2{font-size:26px;letter-spacing:-.02em;margin-bottom:6px}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sub{color:var(--sub);font-size:16px;max-width:640px}
+section{padding:64px 0}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;height:56px;gap:22px}
+.logo{font-weight:800;font-size:18px;letter-spacing:-.02em}
+.logo b{color:var(--accent)}
+nav .links{display:flex;gap:18px;font-size:14px;margin-left:8px}
+nav .links a{color:var(--sub);text-decoration:none}
+nav .links a:hover{color:var(--ink)}
+.languages{margin-left:auto;font-size:13px}
+.languages a{color:var(--accent2);text-decoration:none;margin-left:12px;cursor:pointer}
+.languages a.on{color:var(--ink);font-weight:700;border-bottom:2px solid var(--accent)}
+/* hero */
+.hero{padding:72px 0 40px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-40% -20% auto;height:120%;background:radial-gradient(closest-side,rgba(194,65,12,.09),transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.hero h1{font-size:42px;line-height:1.15;letter-spacing:-.03em;margin:14px 0 16px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{color:var(--sub);font-size:17px;max-width:520px}
+.badges{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.badge{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 14px;font-size:13px;color:var(--sub)}
+.cta{margin-top:26px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.btn-store{display:inline-flex;align-items:center;gap:10px;background:#111;color:#fff;border-radius:10px;padding:10px 18px;text-decoration:none}
+.btn-store:hover{background:#000}
+.btn-store svg{width:22px;height:22px;fill:#fff}
+.btn-store .t1{font-size:11px;opacity:.8;display:block;line-height:1.1}
+.btn-store .t2{font-size:16px;font-weight:600;line-height:1.2}
+.cta .meta{font-size:13px;color:var(--sub)}
+/* mockup */
+.shot{background:linear-gradient(145deg,#f6efe3,#efe6d4);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 24px 60px -30px rgba(43,38,32,.35)}
+.window{background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e3dccb;box-shadow:0 8px 28px -14px rgba(43,38,32,.28);font-size:12.5px}
+.titlebar{display:flex;align-items:center;gap:7px;padding:9px 12px;background:#f6f2e9;border-bottom:1px solid #ece5d5}
+.dot{width:10px;height:10px;border-radius:50%}
+.titlebar .name{margin-left:8px;color:#8a8172;font-size:11.5px}
+.winbody{display:grid;grid-template-columns:148px 1fr;min-height:330px}
+.side{background:#faf7ef;border-right:1px solid #eee7d7;padding:10px 8px;display:flex;flex-direction:column;gap:2px}
+.side .hd{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#a39a86;padding:4px 8px}
+.app{display:flex;justify-content:space-between;align-items:center;padding:6px 9px;border-radius:7px;color:#4d463b}
+.app.on{background:#f0e7d4;font-weight:600;color:#2b2620}
+.app .st{font-size:9.5px;color:var(--green)}
+.main{padding:12px 14px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{background:#fbf8f1;border:1px solid #efe8d8;border-radius:9px;padding:8px 10px}
+.kpi .l{font-size:10.5px;color:#8a8172}
+.kpi .v{font-size:17px;font-weight:700;letter-spacing:-.02em}
+.kpi .d{font-size:10.5px;font-weight:600}
+.up{color:var(--green)}.down{color:var(--red)}
+.brief{margin-top:10px;border:1px solid #efe8d8;border-radius:10px;overflow:hidden}
+.brief .bh{display:flex;align-items:center;gap:7px;background:linear-gradient(90deg,#c2410c,#9a3412);color:#fff;padding:7px 11px;font-weight:600;font-size:11.5px}
+.brief ul{list-style:none}
+.brief li{display:flex;gap:8px;padding:7px 11px;border-top:1px solid #f2ecdf;color:#3c362d;align-items:flex-start}
+.brief li b{font-weight:650}
+.brief .ic{flex:0 0 auto;width:15px;height:15px;border-radius:5px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;color:#fff;margin-top:2px}
+.ic.o{background:var(--accent)}.ic.b{background:var(--blue)}.ic.g{background:var(--green)}
+.spark{margin-top:10px;background:#fbf8f1;border:1px solid #efe8d8;border-radius:9px;padding:8px 10px}
+.spark .l{font-size:10.5px;color:#8a8172;margin-bottom:4px}
+/* features */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.feat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.feat .fi{width:38px;height:38px;border-radius:10px;background:var(--soft);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.feat .fi svg{width:20px;height:20px;stroke:var(--accent);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.feat h3{font-size:16.5px;margin-bottom:6px;letter-spacing:-.01em}
+.feat p{color:var(--sub);font-size:14px}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px;counter-reset:s}
+.step{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 20px 20px}
+.step::before{counter-increment:s;content:counter(s);position:absolute;top:-14px;left:20px;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 4px 10px -3px rgba(194,65,12,.5)}
+.step h3{font-size:16px;margin-bottom:6px}
+.step p{color:var(--sub);font-size:14px}
+.step code{background:#f0ebe0;border-radius:6px;padding:2px 8px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px}
+/* trust */
+.trust{background:#2b2620;color:#efe9dc;border-radius:20px;padding:44px 40px;margin-top:8px}
+.trust .kicker{color:#f0a884}
+.trust h2{color:#fff}
+.trust .sub{color:#b8ae9d}
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:26px}
+.tgrid h3{font-size:15.5px;margin-bottom:6px;color:#fff}
+.tgrid p{font-size:13.5px;color:#b8ae9d}
+/* faq */
+.faq{max-width:760px;margin-top:26px}
+.qa{border-bottom:1px solid var(--line);padding:16px 4px}
+.qa h3{font-size:16px;margin-bottom:6px}
+.qa p{color:var(--sub);font-size:14.5px}
+/* footer */
+footer{border-top:1px solid var(--line);padding:30px 0 46px;font-size:14px;color:var(--sub)}
+footer .wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
 footer a{color:var(--accent2);text-decoration:none}
 footer a:hover{text-decoration:underline}
-.languages{float:right;font-size:13px}
-.languages a{color:var(--accent2);text-decoration:none;margin-left:10px;cursor:pointer}
-.languages a.on{color:var(--ink);font-weight:600}
-[data-lang]{display:none}
-body.lang-en [data-lang="en"],body.lang-zh [data-lang="zh"],body.lang-zht [data-lang="zht"],body.lang-ja [data-lang="ja"]{display:revert}
-h1[data-lang],.tag[data-lang]{display:block}
-body.lang-en h1[data-lang="en"],body.lang-zh h1[data-lang="zh"],body.lang-zht h1[data-lang="zht"],body.lang-ja h1[data-lang="ja"]{display:block}
+footer .right{margin-left:auto}
+@media (max-width:900px){
+ .hero .wrap{grid-template-columns:1fr}
+ .fgrid,.steps,.tgrid{grid-template-columns:1fr}
+ .winbody{grid-template-columns:118px 1fr}
+ .hero h1{font-size:32px}
+ nav .links{display:none}
+}
+/* i18n */
+[data-lang]{display:none !important}
+body.lang-en [data-lang="en"],body.lang-zh [data-lang="zh"],body.lang-zht [data-lang="zht"],body.lang-ja [data-lang="ja"]{display:revert !important}
+body.lang-en li[data-lang="en"],body.lang-zh li[data-lang="zh"],body.lang-zht li[data-lang="zht"],body.lang-ja li[data-lang="ja"]{display:list-item !important}
+body.lang-en span[data-lang="en"],body.lang-zh span[data-lang="zh"],body.lang-zht span[data-lang="zht"],body.lang-ja span[data-lang="ja"]{display:inline !important}
 </style>
 </head>
 <body class="lang-en">
-<div class="wrap">
 
-<header>
-  <div class="languages">
-    <a onclick="setLang('en')" id="l-en">English</a><a onclick="setLang('zh')" id="l-zh">简体中文</a><a onclick="setLang('zht')" id="l-zht">繁體中文</a><a onclick="setLang('ja')" id="l-ja">日本語</a>
-  </div>
-  <h1 data-lang="en">Aios<span class="pulse">Pulse</span></h1>
-  <h1 data-lang="zh">Aios<span class="pulse">Pulse</span></h1>
-  <h1 data-lang="zht">Aios<span class="pulse">Pulse</span></h1>
-  <h1 data-lang="ja">Aios<span class="pulse">Pulse</span></h1>
+<nav><div class="wrap">
+ <div class="logo">Aios<b>Pulse</b></div>
+ <div class="links">
+  <a href="#features"><span data-lang="en">Features</span><span data-lang="zh">功能</span><span data-lang="zht">功能</span><span data-lang="ja">機能</span></a>
+  <a href="#how"><span data-lang="en">How it works</span><span data-lang="zh">使用流程</span><span data-lang="zht">使用流程</span><span data-lang="ja">使い方</span></a>
+  <a href="#faq"><span data-lang="en">FAQ</span><span data-lang="zh">常见问题</span><span data-lang="zht">常見問題</span><span data-lang="ja">よくある質問</span></a>
+ </div>
+ <div class="languages">
+  <a data-i18n="en" class="on">English</a><a data-i18n="zh">简体中文</a><a data-i18n="zht">繁體中文</a><a data-i18n="ja">日本語</a>
+ </div>
+</div></nav>
 
-  <p class="tag" data-lang="en">AI growth analyst for indie developers — turn App Store Connect data into daily briefings and actionable items, not another dashboard.</p>
-  <p class="tag" data-lang="zh">独立开发者的 AI 增长分析师 —— 把 App Store Connect 数据变成每日简报和可执行行动项,而不是又一张数据大盘。</p>
-  <p class="tag" data-lang="zht">獨立開發者的 AI 增長分析師 —— 把 App Store Connect 數據變成每日簡報和可行動行動項,而不是又一張數據大盤。</p>
-  <p class="tag" data-lang="ja">インディー開発者のための AI グロースアナリスト —— App Store Connect のデータを、毎日のブリーフィングと実行可能なアクションに変えます。</p>
-
+<header class="hero"><div class="wrap">
+ <div>
+  <div class="kicker">App Store Connect · AI analyst</div>
+  <h1>
+   <span data-lang="en">Your App Store data,<br><em>working for you</em> every morning.</span>
+   <span data-lang="zh">让你的 App Store 数据,<br>每天早晨<em>替你干活</em>。</span>
+   <span data-lang="zht">讓你的 App Store 數據,<br>每天早晨<em>替你幹活</em>。</span>
+   <span data-lang="ja">App Store のデータが、<br>毎朝<em>あなたのために働く</em>。</span>
+  </h1>
+  <p>
+   <span data-lang="en">AiosPulse reads your App Store Connect analytics, writes a plain-language daily briefing, and turns movement in impressions, conversions and revenue into concrete actions — all on your Mac, nothing leaves it.</span>
+   <span data-lang="zh">AiosPulse 读取你的 App Store Connect 分析数据,生成一份说人话的每日简报,把曝光、转化、收入的异动变成可执行的行动项 —— 全程在你的 Mac 上完成,数据不出本机。</span>
+   <span data-lang="zht">AiosPulse 讀取你的 App Store Connect 分析數據,生成一份說人話的每日簡報,把曝光、轉化、收入的異動變成可執行的行動項 —— 全程在你的 Mac 上完成,數據不出本機。</span>
+   <span data-lang="ja">AiosPulse は App Store Connect の分析データを読み込み、毎日のブリーフィングを自然な言葉で生成。インプレッション・コンバージョン・売上の変動を具体的なアクションに変えます。すべて Mac 上で完結、データは外に出ません。</span>
+  </p>
   <div class="badges">
-    <span class="badge" data-lang="en">Local-first</span>
-    <span class="badge" data-lang="zh">本地优先</span>
-    <span class="badge" data-lang="zht">本地優先</span>
-    <span class="badge" data-lang="ja">ローカル優先</span>
-    <span class="badge" data-lang="en">Sandboxed</span>
-    <span class="badge" data-lang="zh">沙盒安全</span>
-    <span class="badge" data-lang="zht">沙盒安全</span>
-    <span class="badge" data-lang="ja">サンドボックス</span>
-    <span class="badge" data-lang="en">No account required</span>
-    <span class="badge" data-lang="zh">无需注册</span>
-    <span class="badge" data-lang="zht">無需註冊</span>
-    <span class="badge" data-lang="ja">アカウント不要</span>
+   <span class="badge"><span data-lang="en">Local-first</span><span data-lang="zh">本地优先</span><span data-lang="zht">本地優先</span><span data-lang="ja">ローカル優先</span></span>
+   <span class="badge"><span data-lang="en">Sandboxed</span><span data-lang="zh">沙盒安全</span><span data-lang="zht">沙盒安全</span><span data-lang="ja">サンドボックス</span></span>
+   <span class="badge"><span data-lang="en">No sign-up</span><span data-lang="zh">无需注册</span><span data-lang="zht">無需註冊</span><span data-lang="ja">登録不要</span></span>
   </div>
-</header>
-
-<main>
-  <!-- hero: what it does -->
-  <h2 data-lang="en">What it does</h2>
-  <h2 data-lang="zh">它是做什么的</h2>
-  <h2 data-lang="zht">它是做什麼的</h2>
-  <h2 data-lang="ja">できること</h2>
-  <div class="grid">
-    <div class="card"><b data-lang="en">Daily Briefing</b><b data-lang="zh">每日简报</b><b data-lang="zht">每日簡報</b><b data-lang="ja">毎日のブリーフィング</b><span data-lang="en">One screen: impressions, downloads, revenue, what changed and why it matters.</span><span data-lang="zh">一屏看尽:曝光、下载、收入,什么变了、为什么重要。</span><span data-lang="zht">一屏看盡:曝光、下載、收入,什麼變了、為什麼重要。</span><span data-lang="ja">インプレッション・ダウンロード・収益を、何が変わり何が重要かとともに一枚で。</span></div>
-    <div class="card"><b data-lang="en">Diagnostics</b><b data-lang="zh">诊断</b><b data-lang="zht">診斷</b><b data-lang="ja">診断</b><span data-lang="en">Funnel leaks, conversion drops and regional anomalies, flagged automatically with the numbers to back them up.</span><span data-lang="zh">漏斗漏点、转化下滑、地区异常,自动标出并附数据依据。</span><span data-lang="zht">漏斗漏點、轉化下滑、地區異常,自動標出並附數據依據。</span><span data-lang="ja">ファネルの漏れ・CVK 下落・地域異常を、根拠データ付きで自動検出。</span></div>
-    <div class="card"><b data-lang="en">AI Analyst</b><b data-lang="zh">AI 分析师</b><b data-lang="zht">AI 分析師</b><b data-lang="ja">AI アナリスト</b><span data-lang="en">Optional. Bring your own LLM API key — ask follow-up questions about your own data.</span><span data-lang="zh">可选功能。自带 LLM API Key,针对自己的数据追问。</span><span data-lang="zht">可選功能。自帶 LLM API Key,針對自己的數據追問。</span><span data-lang="ja">オプション。自身の LLM API キーで、自データについて自由に質問。</span></div>
-    <div class="card"><b data-lang="en">17 apps in one view</b><b data-lang="zh">17 个 App 一屏总览</b><b data-lang="zht">17 個 App 一屏總覽</b><b data-lang="ja">17 アプリを一括表示</b><span data-lang="en">Built for developers with a portfolio — cross-app comparison without spreadsheets.</span><span data-lang="zh">为多 App 开发者设计 —— 不开表格就能跨 App 对比。</span><span data-lang="zht">為多 App 開發者設計 —— 不開表格就能跨 App 對比。</span><span data-lang="ja">複数アプリを持つ開発者のために —— 表計算なしでクロス比較。</span></div>
+  <div class="cta">
+   <a class="btn-store" href="#faq"><svg viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg><span><span class="t1">Download on the</span><span class="t2">App Store</span></span></a>
+   <span class="meta"><span data-lang="en">macOS 14+ · Free to start</span><span data-lang="zh">macOS 14+ · 免费开始</span><span data-lang="zht">macOS 14+ · 免費開始</span><span data-lang="ja">macOS 14+ · 無料で開始</span></span>
   </div>
+ </div>
+ <div class="shot" aria-hidden="true">
+  <div class="window">
+   <div class="titlebar"><span class="dot" style="background:#ff5f57"></span><span class="dot" style="background:#febc2e"></span><span class="dot" style="background:#28c840"></span><span class="name">AiosPulse — Dashboard</span></div>
+   <div class="winbody">
+    <div class="side">
+     <div class="hd">Apps · 17</div>
+     <div class="app on">DemoFit <span class="st">●</span></div>
+     <div class="app">DemoBrief <span class="st">●</span></div>
+     <div class="app">DemoElf <span class="st">●</span></div>
+     <div class="app">DemoMorning</div>
+     <div class="app">DemoRain</div>
+     <div class="app">DemoFocus</div>
+    </div>
+    <div class="main">
+     <div class="kpis">
+      <div class="kpi"><div class="l" data-lang="en">Impressions (7d)</div><div class="l" data-lang="zh">曝光 (7天)</div><div class="l" data-lang="zht">曝光 (7天)</div><div class="l" data-lang="ja">インプレッション (7日)</div><div class="v">12,480</div><div class="d up">▲ 8.2%</div></div>
+      <div class="kpi"><div class="l" data-lang="en">Downloads (7d)</div><div class="l" data-lang="zh">下载 (7天)</div><div class="l" data-lang="zht">下載 (7天)</div><div class="l" data-lang="ja">ダウンロード (7日)</div><div class="v">486</div><div class="d up">▲ 5.1%</div></div>
+      <div class="kpi"><div class="l" data-lang="en">Conversion</div><div class="l" data-lang="zh">转化率</div><div class="l" data-lang="zht">轉化率</div><div class="l" data-lang="ja">コンバージョン</div><div class="v">3.9%</div><div class="d down">▼ 0.3pt</div></div>
+     </div>
+     <div class="brief">
+      <div class="bh">✦ <span data-lang="en">Today's briefing</span><span data-lang="zh">今日简报</span><span data-lang="zht">今日簡報</span><span data-lang="ja">今日のブリーフィング</span></div>
+      <ul>
+       <li><span class="ic o">⚡</span><span><b>DemoFit</b> <span data-lang="en">impressions +18% WoW — keyword “home gym” is climbing, double down before competitors notice.</span><span data-lang="zh">曝光周环比 +18% —— 关键词“home gym”正在爬升,趁对手没注意加大投入。</span><span data-lang="zht">曝光週環比 +18% —— 關鍵詞“home gym”正在爬升,趁對手沒注意加大投入。</span><span data-lang="ja">インプレッションが前週比 +18% —— キーワード「home gym」が上昇中。競合に気づかれる前に集中投資を。</span></span></li>
+       <li><span class="ic b">📉</span><span><b>DemoRain</b> <span data-lang="en">page conversion down 0.8pt after v2.4 — new screenshots are the suspect, A/B them this week.</span><span data-lang="zh">v2.4 后产品页转化降 0.8pt —— 嫌疑是新截图,本周做 A/B 验证。</span><span data-lang="zht">v2.4 後產品頁轉化降 0.8pt —— 嫌疑是新截圖,本週做 A/B 驗證。</span><span data-lang="ja">v2.4 以降で製品ページの CVR が 0.8pt 低下 —— 新スクリーンショットが疑い。今週 A/B テストを。</span></span></li>
+       <li><span class="ic g">🎯</span><span><b>DemoFocus</b> <span data-lang="en">annual-plan renewals at 62% — good moment to trial a yearly upsell on the paywall.</span><span data-lang="zh">年订阅续费率 62% —— 适合在付费页试一次年费升级引导。</span><span data-lang="zht">年訂閱續費率 62% —— 適合在付費頁試一次年費升級引導。</span><span data-lang="ja">年間プラン更新率 62% —— ペイウォールで年額アップセルを試す好機。</span></span></li>
+      </ul>
+     </div>
+     <div class="spark">
+      <div class="l" data-lang="en">Impressions · Downloads — last 7 days</div>
+      <div class="l" data-lang="zh">曝光 · 下载 —— 近 7 天</div>
+      <div class="l" data-lang="zht">曝光 · 下載 —— 近 7 天</div>
+      <div class="l" data-lang="ja">インプレッション · DL —— 過去7日</div>
+      <svg viewBox="0 0 300 46" width="100%" height="46">
+       <polyline points="0,38 40,34 80,35 120,28 160,26 200,20 240,18 300,10" fill="none" stroke="#c2410c" stroke-width="2.2" stroke-linecap="round"/>
+       <polyline points="0,42 40,41 80,39 120,38 160,36 200,34 240,33 300,30" fill="none" stroke="#1d4ed8" stroke-width="1.8" stroke-dasharray="1 4" stroke-linecap="round"/>
+      </svg>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div></header>
 
-  <!-- how it works -->
-  <h2 data-lang="en">How it works</h2>
-  <h2 data-lang="zh">工作方式</h2>
-  <h2 data-lang="zht">工作方式</h2>
-  <h2 data-lang="ja">仕組み</h2>
-  <ol class="steps">
-    <li data-lang="en">Create a read-only API key in App Store Connect (Users and Access → Integrations → App Store Connect API).</li>
-    <li data-lang="zh">在 App Store Connect 创建只读 API Key(用户和访问 → 集成 → App Store Connect API)。</li>
-    <li data-lang="zht">在 App Store Connect 建立唯讀 API Key(使用者和存取 → 整合 → App Store Connect API)。</li>
-    <li data-lang="ja">App Store Connect で読み取り専用 API キーを作成(ユーザとアクセス → 統合)。</li>
+<section id="features"><div class="wrap">
+ <div class="kicker"><span data-lang="en">Features</span><span data-lang="zh">功能</span><span data-lang="zht">功能</span><span data-lang="ja">機能</span></div>
+ <h2><span data-lang="en">Everything between “raw data” and “what do I do today”</span><span data-lang="zh">从「原始数据」到「今天该做什么」之间的全部</span><span data-lang="zht">從「原始數據」到「今天該做什麼」之間的全部</span><span data-lang="ja">「生データ」から「今日やること」までのすべて</span></h2>
+ <p class="sub"><span data-lang="en">Six modules, one workflow. Each one feeds the briefing.</span><span data-lang="zh">六个模块,一条工作流,全部汇入每日简报。</span><span data-lang="zht">六個模組,一條工作流,全部匯入每日簡報。</span><span data-lang="ja">6つのモジュールが一つのワークフローに。すべてブリーフィングに集約。</span></p>
+ <div class="fgrid">
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 3l2.1 5.6L20 10l-5.9 1.4L12 17l-2.1-5.6L4 10l5.9-1.4z"/><path d="M19 15l.9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9z"/></svg></div><h3><span data-lang="en">Daily AI briefing</span><span data-lang="zh">每日 AI 简报</span><span data-lang="zht">每日 AI 簡報</span><span data-lang="ja">毎日のAIブリーフィング</span></h3><p><span data-lang="en">Plain-language recap of what moved across all your apps — with the “so what” already written for you. Rules-based engine is free; plug in your own LLM key for deeper reads.</span><span data-lang="zh">用大白话讲清全部 app 的异动,连「所以呢」都替你写好。规则引擎免费;插上自己的 LLM Key 解读更深。</span><span data-lang="zht">用大白話講清全部 app 的異動,連「所以呢」都替你寫好。規則引擎免費;插上自己的 LLM Key 解讀更深。</span><span data-lang="ja">全アプリの動きを平易な言葉で要約。「だから何?」まで答えます。ルールエンジンは無料、LLM キーでさらに深く。</span></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div><h3><span data-lang="en">Trend diagnostics</span><span data-lang="zh">趋势诊断</span><span data-lang="zht">趨勢診斷</span><span data-lang="ja">トレンド診断</span></h3><p><span data-lang="en">Impressions → page views → taps → downloads: see exactly which funnel stage leaks, per app, per country.</span><span data-lang="zh">曝光→产品页→点击→下载,逐层看漏斗哪一环在漏,按 app、按国家拆。</span><span data-lang="zht">曝光→產品頁→點擊→下載,逐層看漏斗哪一環在漏,按 app、按國家拆。</span><span data-lang="ja">インプレッション→ページ→タップ→DL。ファネルのどの段階が漏れているか、アプリ別・国別に可視化。</span></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 010 18M3 12h18M12 3a15 15 0 000 18"/></svg></div><h3><span data-lang="en">Geo breakdown</span><span data-lang="zh">地区拆解</span><span data-lang="zht">地區拆解</span><span data-lang="ja">地域別分析</span></h3><p><span data-lang="en">Where downloads actually come from — spot a rising market early, catch a listing problem in one country before it spreads.</span><span data-lang="zh">下载到底从哪来 —— 及早发现 rising market,在一个国家的页面出问题时就拦住它。</span><span data-lang="zht">下載到底從哪來 —— 及早發現 rising market,在一個國家的頁面出問題時就攔住它。</span><span data-lang="ja">ダウンロードの出身地を把握。伸びる市場を早期発見、一国のページ問題を拡大前に捕捉。</span></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M4 18v-6a8 5 0 0116 0v6"/><path d="M2 18h20M12 4v2"/></svg></div><h3><span data-lang="en">Keyword radar</span><span data-lang="zh">关键词雷达</span><span data-lang="zht">關鍵詞雷達</span><span data-lang="ja">キーワードレーダー</span></h3><p><span data-lang="en">Track your rankings on the terms you bid on, watch them drift day by day, and see which title/keyword tweaks actually moved the needle.</span><span data-lang="zh">盯住你投的关键词排名,逐日漂移看得见;改标题/关键词到底有没有用,数据说话。</span><span data-lang="zht">盯住你投的關鍵詞排名,逐日漂移看得見;改標題/關鍵詞到底有沒有用,數據說話。</span><span data-lang="ja">設定キーワードの順位を日々追跡。タイトルやキーワード変更の効果をデータで検証。</span></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M8 15h4"/></svg></div><h3><span data-lang="en">Revenue & subscriptions</span><span data-lang="zh">收入与订阅</span><span data-lang="zht">收入與訂閱</span><span data-lang="ja">売上とサブスク</span></h3><p><span data-lang="en">Proceeds, refunds and renewal cohorts side by side — know your real net, not the vanity number.</span><span data-lang="zh">收入、退款、续费同期群放在一起看 —— 看真实净收入,别看虚荣数字。</span><span data-lang="zht">收入、退款、續費同期群放在一起看 —— 看真實淨收入,別看虛榮數字。</span><span data-lang="ja">売上・返金・更新コホートを並べて確認。虚栄の数字ではなく純利益を。</span></p></div>
+  <div class="feat"><div class="fi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h3><span data-lang="en">Private by design</span><span data-lang="zh">隐私即默认</span><span data-lang="zht">隱私即默認</span><span data-lang="ja">プライバシー設計</span></h3><p><span data-lang="en">Runs sandboxed on your Mac. Credentials live in your Keychain, analytics in your Application Support folder. No accounts, no telemetry, no cloud.</span><span data-lang="zh">在你的 Mac 沙盒内运行:凭证进钥匙串,数据进 Application Support。无账号、无埋点、无云端。</span><span data-lang="zht">在你的 Mac 沙盒內運行:憑證進鑰匙串,數據進 Application Support。無帳號、無埋點、無雲端。</span><span data-lang="ja">Mac のサンドボックス内で動作。資格情報はキーチェーン、データは Application Support へ。アカウント・テレメトリ・クラウドなし。</span></p></div>
+ </div>
+</div></section>
 
-    <li data-lang="en">Paste the key once — it is stored in your Mac's Keychain, and sync runs on demand or on your own schedule.</li>
-    <li data-lang="zh">粘贴一次即可 —— Key 存进你的 Mac 钥匙串,按需或按你自己的节奏同步。</li>
-    <li data-lang="zht">貼上一次即可 —— Key 存進你的 Mac 鑰匙圈,按需或按你自己的節奏同步。</li>
-    <li data-lang="ja">キーを一度貼るだけ —— Mac のキーチェーンに保存され、必要時に同期。</li>
+<section id="how" style="padding-top:8px"><div class="wrap">
+ <div class="kicker"><span data-lang="en">How it works</span><span data-lang="zh">使用流程</span><span data-lang="zht">使用流程</span><span data-lang="ja">使い方</span></div>
+ <h2><span data-lang="en">Three steps, five minutes</span><span data-lang="zh">三步,五分钟</span><span data-lang="zht">三步,五分鐘</span><span data-lang="ja">3ステップ、5分</span></h2>
+ <div class="steps">
+  <div class="step"><h3><span data-lang="en">Create a read-only API key</span><span data-lang="zh">生成只读 API Key</span><span data-lang="zht">生成唯讀 API Key</span><span data-lang="ja">読み取り専用キーを作成</span></h3><p><span data-lang="en">In App Store Connect → Users and Access → Integrations, generate an API key with the Analytics + Sales roles. It can read, never write.</span><span data-lang="zh">在 App Store Connect → 用户和访问 → 集成里生成 API Key,授予 Analytics + Sales 角色 —— 只能读,永远不能写。</span><span data-lang="zht">在 App Store Connect → 使用者和存取 → 整合裡生成 API Key,授予 Analytics + Sales 角色 —— 只能讀,永遠不能寫。</span><span data-lang="ja">App Store Connect の「ユーザとアクセス → 統合」で API キーを発行し、Analytics + Sales ロールを付与。読み取り専用で書き込みは不可。</span></p></div>
+  <div class="step"><h3><span data-lang="en">Paste it once</span><span data-lang="zh">粘贴一次</span><span data-lang="zht">貼上一次</span><span data-lang="ja">一度貼り付け</span></h3><p><span data-lang="en">AiosPulse stores the key in your macOS Keychain and pulls analytics, sales and subscription reports on your schedule.</span><span data-lang="zh">AiosPulse 把 Key 存进 macOS 钥匙串,按你的节奏拉取分析、销售和订阅报表。</span><span data-lang="zht">AiosPulse 把 Key 存進 macOS 鑰匙串,按你的節奏拉取分析、銷售和訂閱報表。</span><span data-lang="ja">キーは macOS キーチェーンに保存。分析・売上・サブスクレポートを任意の頻度で取得。</span></p></div>
+  <div class="step"><h3><span data-lang="en">Read your briefing</span><span data-lang="zh">读你的简报</span><span data-lang="zht">讀你的簡報</span><span data-lang="ja">ブリーフィングを読む</span></h3><p><span data-lang="en">Every morning, one screen: what moved, why it matters, what to do. No key yet? Built-in demo data lets you explore everything first.</span><span data-lang="zh">每天早晨一屏看完:动了什么、为何重要、该做什么。还没有 Key?内置演示数据先让你把功能逛个遍。</span><span data-lang="zht">每天早晨一屏看完:動了什麼、為何重要、該做什麼。還沒有 Key?內置演示數據先讓你把功能逛個遍。</span><span data-lang="ja">毎朝 1 画面で:何が動き、なぜ重要か、何をすべきか。キーがなくても内蔵デモデータで全機能を試せます。</span></p></div>
+ </div>
+</div></section>
 
-    <li data-lang="en">Open the app: today's briefing, diagnostics and action items are already there.</li>
-    <li data-lang="zh">打开 App:今日简报、诊断和行动项已经在那里等你。</li>
-    <li data-lang="zht">打開 App:今日簡報、診斷和行動項已經在那裡等你。</li>
-    <li data-lang="ja">アプリを開けば、今日のブリーフィング・診断・アクションは既にそこに。</li>
-  </ol>
-  <div class="note" data-lang="en">No key yet? The app launches with a built-in demo dataset so you can explore every screen before connecting your own data.</div>
-  <div class="note" data-lang="zh">还没有 Key?App 内置演示数据,先体验全部功能,再接入自己的数据。</div>
-  <div class="note" data-lang="zht">還沒有 Key?App 內建演示數據,先體驗全部功能,再接入自己的數據。</div>
-  <div class="note" data-lang="ja">キーがなくても大丈夫 —— 内蔵デモデータで全画面を先に体験できます。</div>
+<section style="padding-top:8px"><div class="wrap">
+ <div class="trust">
+  <div class="kicker"><span data-lang="en">Privacy</span><span data-lang="zh">隐私</span><span data-lang="zht">隱私</span><span data-lang="ja">プライバシー</span></div>
+  <h2><span data-lang="en">Your numbers never leave your Mac</span><span data-lang="zh">你的数据永远不离开你的 Mac</span><span data-lang="zht">你的數據永遠不離開你的 Mac</span><span data-lang="ja">データは Mac の外に出ません</span></h2>
+  <p class="sub"><span data-lang="en">AiosPulse has no backend. “Connect” means your Mac talks to Apple directly.</span><span data-lang="zh">AiosPulse 没有后端。「连接」指的是你的 Mac 直连 Apple。</span><span data-lang="zht">AiosPulse 沒有後端。「連接」指的是你的 Mac 直連 Apple。</span><span data-lang="ja">AiosPulse にバックエンドはありません。「接続」とはあなたの Mac が Apple と直接通信することです。</span></p>
+  <div class="tgrid">
+   <div><h3><span data-lang="en">Keychain credentials</span><span data-lang="zh">钥匙串存凭证</span><span data-lang="zht">鑰匙串存憑證</span><span data-lang="ja">キーチェーンに保存</span></h3><p><span data-lang="en">Your API key is stored by macOS Keychain with your app's sandbox ACL. It is never written to a plain file, never synced.</span><span data-lang="zh">API Key 由 macOS 钥匙串按沙盒 ACL 保管,不落明文文件、不同步。</span><span data-lang="zht">API Key 由 macOS 鑰匙串按沙盒 ACL 保管,不落明文文件、不同步。</span><span data-lang="ja">API キーはサンドボックス ACL 付きでキーチェーンが管理。平文ファイル化も同期もされません。</span></p></div>
+   <div><h3><span data-lang="en">Local analytics store</span><span data-lang="zh">本地分析库</span><span data-lang="zht">本地分析庫</span><span data-lang="ja">ローカル分析ストア</span></h3><p><span data-lang="en">Reports land in your Application Support folder as files you can inspect. Delete the folder, and every trace is gone.</span><span data-lang="zh">报表落在你自己的 Application Support 目录,文件可查可审;删掉目录,痕迹全无。</span><span data-lang="zht">報表落在你自己的 Application Support 目錄,文件可查可審;刪掉目錄,痕跡全無。</span><span data-lang="ja">レポートは Application Support 内の検査可能なファイルとして保存。フォルダを削除すれば痕跡は完全に消えます。</span></p></div>
+   <div><h3><span data-lang="en">No telemetry, ever</span><span data-lang="zh">零埋点</span><span data-lang="zht">零埋點</span><span data-lang="ja">テレメトリ完全なし</span></h3><p><span data-lang="en">No analytics SDKs, no crash reporting service, no usage stats. The App Store privacy label says “Data Not Collected” — because it's true.</span><span data-lang="zh">无分析 SDK、无崩溃上报服务、无使用统计。App Store 隐私标签填「未收集任何数据」—— 因为这就是事实。</span><span data-lang="zht">無分析 SDK、無崩潰上報服務、無使用統計。App Store 隱私標籤填「未收集任何數據」—— 因為這就是事實。</span><span data-lang="ja">分析 SDK・クラッシュレポート・利用統計は一切なし。App Store のプライバシーラベルは「データ未収集」—— 事実そのままです。</span></p></div>
+  </div>
+ </div>
+</div></section>
 
-  <!-- privacy -->
-  <h2 data-lang="en">Privacy</h2>
-  <h2 data-lang="zh">隐私</h2>
-  <h2 data-lang="zht">隱私</h2>
-  <h2 data-lang="ja">プライバシー</h2>
-  <p data-lang="en">AiosPulse runs entirely on your Mac. Your API key lives in the macOS Keychain, your analytics data never leaves your disk, and there is no account, no telemetry and no third-party analytics SDK. The optional AI feature talks only to the LLM provider you configure. Read the full <a href="privacy.html" data-lang="en">Privacy Policy</a>.</p>
-  <p data-lang="zh">AiosPulse 完全在你的 Mac 上运行。API Key 存在 macOS 钥匙串,分析数据不出本机磁盘;没有账号、没有遥测、没有第三方统计 SDK。可选的 AI 功能只连接你自己配置的 LLM 服务。阅读完整<a href="privacy.html">隐私政策</a>。</p>
-  <p data-lang="zht">AiosPulse 完全在你的 Mac 上執行。API Key 存在 macOS 鑰匙圈,分析數據不出本機磁碟;沒有帳號、沒有遙測、沒有第三方統計 SDK。可選的 AI 功能只連接你自己配置的 LLM 服務。閱讀完整<a href="privacy.html">隱私政策</a>。</p>
-  <p data-lang="ja">AiosPulse はすべてお使いの Mac 上で動作します。API キーは macOS キーチェーンに保存され、分析データがディスクの外に出ることはありません。アカウント・テレメトリ・サードパーティ解析 SDK は一切なし。オプションの AI 機能は、あなたが設定した LLM プロバイダのみと通信します。詳細は<a href="privacy.html">プライバシーポリシー</a>。</p>
-</main>
+<section id="faq" style="padding-top:8px"><div class="wrap">
+ <div class="kicker">FAQ</div>
+ <h2><span data-lang="en">Questions reviewers and users actually ask</span><span data-lang="zh">审核员和用户真实会问的</span><span data-lang="zht">審核員和用戶真實會問的</span><span data-lang="ja">実際よくある質問</span></h2>
+ <div class="faq">
+  <div class="qa"><h3><span data-lang="en">I don't have an API key yet — can I try it?</span><span data-lang="zh">我还没有 API Key,能先试用吗?</span><span data-lang="zht">我還沒有 API Key,能先試用嗎?</span><span data-lang="ja">API キーがなくても試せますか?</span></h3><p><span data-lang="en">Yes. AiosPulse launches with built-in demo data for 17 sample apps, so every module is explorable before you connect anything.</span><span data-lang="zh">可以。AiosPulse 内置 17 个示例 app 的演示数据,连接前即可体验全部模块。</span><span data-lang="zht">可以。AiosPulse 內置 17 個示例 app 的演示數據,連接前即可體驗全部模組。</span><span data-lang="ja">はい。17 のサンプルアプリのデモデータを内蔵しており、接続前に全モジュールを体験できます。</span></p></div>
+  <div class="qa"><h3><span data-lang="en">Does the API key give you access to my account?</span><span data-lang="zh">API Key 会让你们拿到我的账号权限吗?</span><span data-lang="zht">API Key 會讓你們拿到我的帳號權限嗎?</span><span data-lang="ja">API キーでアカウント操作は可能になりますか?</span></h3><p><span data-lang="en">No. You create the key yourself with read-only roles, it stays in your Keychain, and requests go straight from your Mac to Apple. We never see it.</span><span data-lang="zh">不会。Key 由你自己生成、只有只读角色、存你自己的钥匙串,请求从你的 Mac 直达 Apple,我们全程看不到。</span><span data-lang="zht">不會。Key 由你自己生成、只有唯讀角色、存你自己的鑰匙串,請求從你的 Mac 直達 Apple,我們全程看不到。</span><span data-lang="ja">いいえ。キーは読み取り専用ロールで自身が発行し、キーチェーンに保存。リクエストは Mac から Apple へ直接。当社は一切関与しません。</span></p></div>
+  <div class="qa"><h3><span data-lang="en">What does the AI part add, exactly?</span><span data-lang="zh">AI 部分到底加了什么?</span><span data-lang="zht">AI 部分到底加了什麼?</span><span data-lang="ja">AI 部分の追加要素は?</span></h3><p><span data-lang="en">The free, rules-based engine already flags moves and funnel leaks. Optionally, you can plug in your own LLM API key to get written analysis and recommendations in your language. The app works fully without it.</span><span data-lang="zh">免费的规则引擎已经能标出异动和漏斗漏洞;可选插入你自己的 LLM Key,得到成文的中文/英文/日文分析与建议。不插也完全可用。</span><span data-lang="zht">免費的規則引擎已經能標出異動和漏斗漏洞;可選插入你自己的 LLM Key,得到成文的中文/英文/日文分析與建議。不插也完全可用。</span><span data-lang="ja">無料のルールエンジンでも異常やファネルの漏れは検出できます。任意で LLM キーを接続すると、日本語の分析と提案文を生成。未接続でも全機能利用可能です。</span></p></div>
+  <div class="qa"><h3><span data-lang="en">Which platforms are supported?</span><span data-lang="zh">支持哪些平台?</span><span data-lang="zht">支持哪些平台?</span><span data-lang="ja">対応プラットフォームは?</span></h3><p><span data-lang="en">macOS 14 or later. All apps linked to your App Store Connect team are supported, iOS and Mac alike.</span><span data-lang="zh">macOS 14 及以上。你 App Store Connect 团队下的全部 app(iOS 与 Mac)都在支持范围。</span><span data-lang="zht">macOS 14 及以上。你 App Store Connect 團隊下的全部 app(iOS 與 Mac)都在支持範圍。</span><span data-lang="ja">macOS 14 以降。App Store Connect チームに紐づく全アプリ(iOS・Mac 両方)に対応。</span></p></div>
+ </div>
+</div></section>
 
-<footer>
-  <p data-lang="en">© 2026 Kinet · <a href="privacy.html">Privacy Policy</a> · <a href="https://apps.apple.com/">App Store</a></p>
-  <p data-lang="zh">© 2026 Kinet · <a href="privacy.html">隐私政策</a> · <a href="https://apps.apple.com/">App Store</a></p>
-  <p data-lang="zht">© 2026 Kinet · <a href="privacy.html">隱私政策</a> · <a href="https://apps.apple.com/">App Store</a></p>
-  <p data-lang="ja">© 2026 Kinet · <a href="privacy.html">プライバシーポリシー</a> · <a href="https://apps.apple.com/">App Store</a></p>
-</footer>
+<footer><div class="wrap">
+ <div>© 2026 AiosPulse</div>
+ <a href="privacy.html"><span data-lang="en">Privacy Policy</span><span data-lang="zh">隐私政策</span><span data-lang="zht">隱私政策</span><span data-lang="ja">プライバシーポリシー</span></a>
+ <div class="right"><span data-lang="en">Built for indie developers who read their numbers.</span><span data-lang="zh">为认真看数据的独立开发者而做。</span><span data-lang="zht">為認真看數據的獨立開發者而做。</span><span data-lang="ja">数字を真面目に読む個人開発者のために。</span></div>
+</div></footer>
 
-</div>
 <script>
 function setLang(l){
-  document.body.className='lang-'+l;
-  try{localStorage.setItem('aiospulse-lang',l)}catch(e){}
-  for(const id of ['en','zh','zht','ja']){
-    document.getElementById('l-'+id).classList.toggle('on',id===l);
-  }
+ document.body.className='lang-'+l;
+ try{localStorage.setItem('aiospulse-lang',l)}catch(e){}
+ document.documentElement.lang = l==='zht'?'zh-Hant':(l==='zh'?'zh-Hans':l);
+ document.querySelectorAll('.languages a').forEach(a=>a.classList.toggle('on',a.dataset.i18n===l));
 }
-(function(){
-  let l=null;
-  try{l=localStorage.getItem('aiospulse-lang')}catch(e){}
-  if(!l){
-    const n=(navigator.language||'en').toLowerCase();
-    l = n.startsWith('zh')?(n.includes('tw')||n.includes('hk')||n.includes('hant')?'zht':'zh') : n.startsWith('ja')?'ja':'en';
-  }
-  setLang(l);
-})();
+document.querySelectorAll('.languages a').forEach(a=>a.addEventListener('click',()=>setLang(a.dataset.i18n)));
+(function(){var s=null;try{s=localStorage.getItem('aiospulse-lang')}catch(e){}
+ if(!s){var n=(navigator.language||'').toLowerCase();s=n.startsWith('zh')?(n.includes('tw')||n.includes('hk')?'zht':'zh'):(n.startsWith('ja')?'ja':'en')}
+ setLang(s);})();
 </script>
 </body>
 </html>
