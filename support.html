@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AiosPulse — Support</title>
+<meta name="description" content="Support for AiosPulse, the App Store Connect daily briefing app for macOS. Setup help, API keys, troubleshooting, FAQ.">
+<style>
+:root{--bg:#faf7f2;--panel:#ffffff;--line:#e8e2d6;--ink:#2b2620;--sub:#6b6357;--accent:#c2410c;--accent2:#9a3412;--soft:#f3eee4}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","PingFang SC","Hiragino Sans","Microsoft YaHei",sans-serif;line-height:1.7;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+a{color:var(--accent2)}
+nav{background:rgba(250,247,242,.95);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;height:56px;gap:20px}
+.logo{font-weight:800;font-size:18px;letter-spacing:-.02em}
+.logo b{color:var(--accent)}
+nav .links{margin-left:auto;font-size:14px;display:flex;gap:18px}
+nav .links a{color:var(--sub);text-decoration:none}
+nav .links a:hover{color:var(--ink)}
+header{padding:52px 0 10px}
+h1{font-size:32px;letter-spacing:-.02em;margin-bottom:8px}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.sub{color:var(--sub);max-width:620px}
+section{padding:30px 0}
+h2{font-size:21px;letter-spacing:-.01em;margin:18px 0 14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:14px}
+.card h3{font-size:16.5px;margin-bottom:8px}
+.card p,.card li{font-size:15px;color:#4d463b}
+.card ol,.card ul{padding-left:20px;margin:8px 0}
+.card code{background:var(--soft);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.steps li{margin:6px 0}
+.faq{border-bottom:1px solid var(--line);padding:16px 2px}
+.faq:last-child{border-bottom:none}
+.faq h3{font-size:16px;margin-bottom:6px}
+.faq p{font-size:15px;color:#4d463b}
+.contact{background:linear-gradient(145deg,#f6efe3,#efe6d4);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin:26px 0 8px}
+.contact .big{font-size:18px;font-weight:700;margin-bottom:6px}
+.btn{display:inline-block;background:var(--accent);color:#fff;border-radius:10px;padding:10px 20px;font-weight:600;font-size:15px;text-decoration:none;margin-top:10px}
+.btn:hover{background:var(--accent2)}
+footer{border-top:1px solid var(--line);margin-top:40px;padding:22px 0 40px;font-size:13.5px;color:var(--sub)}
+footer .wrap{display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+.right{margin-left:auto}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <div class="logo">Aios<b>Pulse</b></div>
+  <div class="links"><a href="index.html">Home</a><a href="privacy.html">Privacy</a><a href="terms.html">Terms</a><a href="support.html">Support</a></div>
+</div></nav>
+
+<header><div class="wrap">
+  <div class="kicker">Support</div>
+  <h1>Get help with AiosPulse</h1>
+  <p class="sub">AiosPulse turns your App Store Connect account into one daily briefing — impressions, page views, conversion and downloads, with funnel breakage called out in plain language. Local-first: your credentials never leave your Mac.</p>
+</div></header>
+
+<main class="wrap">
+
+<section>
+  <h2>Getting started</h2>
+  <div class="card">
+    <h3>Connect your App Store Connect account</h3>
+    <ol class="steps">
+      <li>In App Store Connect, go to <strong>Users and Access → Integrations → Keys</strong> and generate an App Store Connect API key with the <strong>Developer</strong> role.</li>
+      <li>Note the <strong>Key ID</strong> and <strong>Issuer ID</strong>, and download the <code>.p8</code> private key file.</li>
+      <li>In AiosPulse, open <strong>Settings → App Store Connect</strong> and paste all three. The key is stored in your macOS Keychain and used to sign requests locally.</li>
+      <li>Press <strong>Collect now</strong> — your first briefing appears within a minute or two, depending on catalogue size.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>No account yet? Try the demo</h3>
+    <p>AiosPulse launches with built-in sample data. Every view — briefing, funnel diagnostics, territory charts, AI analyst — works on first launch with zero configuration, so you can evaluate the full product before connecting anything.</p>
+  </div>
+</section>
+
+<section>
+  <h2>FAQ</h2>
+  <div class="faq">
+    <h3>Where is my API key stored?</h3>
+    <p>In the macOS Keychain on this Mac only. AiosPulse signs App Store Connect API requests (ES256) locally. There is no AiosPulse server, no account system, and no telemetry — nothing about your store data leaves this Mac.</p>
+  </div>
+  <div class="faq">
+    <h3>The dashboard shows sample data / numbers look like a demo</h3>
+    <p>You are viewing the built-in sample dataset. Open <strong>Settings → App Store Connect</strong>, add your API key, and press <strong>Collect now</strong> to switch to your real data.</p>
+  </div>
+  <div class="faq">
+    <h3>Collection finished but yesterday is missing</h3>
+    <p>Apple reports sales and analytics with a delay of roughly 24–48 hours. AiosPulse shows a banner when the latest available day is older than expected, with one-click catch-up collection. If it still looks stale, press <strong>Collect now</strong> again — incremental collection resumes from your last complete day.</p>
+  </div>
+  <div class="faq">
+    <h3>What does the funnel "breakage" warning mean?</h3>
+    <p>When impressions are not converting into page views, or page views into downloads, AiosPulse names the app and the funnel layer where the drop happened, instead of hiding it in a chart. Click the warning for the per-territory breakdown.</p>
+  </div>
+  <div class="faq">
+    <h3>Which AI endpoints does the AI analyst support?</h3>
+    <p>Any OpenAI-compatible endpoint: Zhipu GLM, DeepSeek, OpenAI, or a local Ollama instance. Your endpoint URL and key (if any) are stored locally; a local Ollama endpoint needs no key at all. The AI feature is entirely optional — every other view works without it.</p>
+  </div>
+  <div class="faq">
+    <h3>Does AiosPulse work offline?</h3>
+    <p>Yes. The app is local-first: sample data, settings and history are all on-disk. Network is used only when you explicitly collect from App Store Connect or call your own AI endpoint.</p>
+  </div>
+  <div class="faq">
+    <h3>How do I delete my data?</h3>
+    <p>Remove the API key in Settings (this deletes it from the Keychain) and delete the app. Collected data lives entirely inside the app's container; there is nothing stored anywhere else.</p>
+  </div>
+</section>
+
+<section class="contact">
+  <div class="big">Still stuck?</div>
+  <p>Email us and include: macOS version, AiosPulse version (Settings → About), and what you expected vs. what happened. We usually reply within two business days.</p>
+  <a class="btn" href="mailto:phinn@outlook.com?subject=AiosPulse%20Support">✉ phinn@outlook.com</a>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <div>© 2026 AiosPulse</div>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="terms.html">Terms</a>
+  <a href="index.html">Home</a>
+  <div class="right">Built for indie developers who read their numbers.</div>
+</div></footer>
+</body>
+</html>
